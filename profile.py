@@ -1,28 +1,16 @@
 import requests
+from config import API_TOKEN as token
 
-url = "https://whatsapp.turn.io/v1/contacts/27671401556/profile"
-token = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJUdXJuIiwiZXhwIjoxNzIzOTAzMDcyLCJpYXQiOjE3MjMyOTgyNzIsImlzcyI6IlR1cm4iLCJqdGkiOiJiYmZiZDIxYy1hMTRmLTQwNjktOGY4Zi0yZGZhN2RkNWM0N2EiLCJuYmYiOjE3MjMyOTgyNzEsInN1YiI6Im51bWJlcjo1OTk0IiwidHlwIjoiYWNjZXNzIn0.hAZXHYuGivuJSt8dTtJ_fbcIYER7vzsi1j8U_1BF0g4EAAfHCIoYi6hGyVwWeH3SvtmnWmhTAHfblEM-O5qNkw"
 headers = {
-    "Authorization": "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJUdXJuIiwiZXhwIjoxNzIzOTAzMDcyLCJpYXQiOjE3MjMyOTgyNzIsImlzcyI6IlR1cm4iLCJqdGkiOiJiYmZiZDIxYy1hMTRmLTQwNjktOGY4Zi0yZGZhN2RkNWM0N2EiLCJuYmYiOjE3MjMyOTgyNzEsInN1YiI6Im51bWJlcjo1OTk0IiwidHlwIjoiYWNjZXNzIn0.hAZXHYuGivuJSt8dTtJ_fbcIYER7vzsi1j8U_1BF0g4EAAfHCIoYi6hGyVwWeH3SvtmnWmhTAHfblEM-O5qNkw",
+    "Authorization": token,
     "Accept": "application/vnd.v1+json"
 }
 
-params = {'schema':'8c5ed373-b0ca-4e1f-99b9-9a865e62754f'}
+def get_user_profile(number):
+    url = f"https://whatsapp.turn.io/v1/contacts/{number}/profile"
+    response = requests.get(url, headers=headers)
 
-response = requests.get(url, params=params, headers=headers)
-print(response.text)
-
-# api_key = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJUdXJuIiwiZXhwIjoxNzU0ODMyMjUxLCJpYXQiOjE3MjMyOTYyODAsImlzcyI6IlR1cm4iLCJqdGkiOiI0NDVhMTExMy0zMDVjLTRmZTUtOGMxYi1jYTg0Mjg2MzFhZWEiLCJuYmYiOjE3MjMyOTYyNzksInN1YiI6Im51bWJlcjo1OTk0IiwidHlwIjoiYWNjZXNzIn0.rpaYvtMEiXzR4l4hmqjLdjYTS8lq3UonHhGgXXfnNsqm3U4OrOaBCbqIGGDYc70kJ0MU0FfMa1Kpg0gPXBT25w"
-
-
-
-# curl https://whatsapp.turn.io/v1/contacts/27671401556/profile \
-    # -H 'Authorization: eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJUdXJuIiwiZXhwIjoxNzIzOTAzMDcyLCJpYXQiOjE3MjMyOTgyNzIsImlzcyI6IlR1cm4iLCJqdGkiOiJiYmZiZDIxYy1hMTRmLTQwNjktOGY4Zi0yZGZhN2RkNWM0N2EiLCJuYmYiOjE3MjMyOTgyNzEsInN1YiI6Im51bWJlcjo1OTk0IiwidHlwIjoiYWNjZXNzIn0.hAZXHYuGivuJSt8dTtJ_fbcIYER7vzsi1j8U_1BF0g4EAAfHCIoYi6hGyVwWeH3SvtmnWmhTAHfblEM-O5qNkw' \
-    # -H 'Accept: application/vnd.v1+json'
-
-
-
-
+    return response.json()
 
 
 
