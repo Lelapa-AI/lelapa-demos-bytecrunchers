@@ -20,6 +20,52 @@ def add_field(name, display, t, default, is_private=True):
             "default": default,
             "is_private": is_private
     }]
+    }
 
     result = requests.post(url, headers=headers, json=data)
-}
+
+
+
+#  curl -X POST https://whatsapp.turn.io/v1/contacts/schemas \
+#     -H 'Authorization: Bearer token' \
+#     -H 'Accept: application/vnd.v1+json' \
+#     -H 'Content-Type: application/json' \
+#     -d '{
+#         "version": "0.0.1-alpha",
+#         "fields": [{
+#             "name": "consent",
+#             "display": "Consent Given",
+#             "type": "BOOLEAN",
+#             "default": false,
+#             "is_private": true
+#         }, {
+#             "name": "gender",
+#             "display": "Gender",
+#             "type": "ENUM",
+#             "null": false,
+#             "is_private": false,
+#             "default": "UNDISCLOSED",
+#             "enum": [
+#                 {"value": "MALE", "display": "Male"},
+#                 {"value": "FEMALE", "display": "Female"},
+#                 {"value": "OTHER", "display": "Other"},
+#                 {"value": "UNDISCLOSED", "display": "Undisclosed"}
+#             ]
+#         }]
+#     }'
+
+
+def create_consent_field():
+    data = {"version":"0.0.1-alpha", "fields":[{
+        "name":"consent", 
+        "display":"Consent given", 
+        "type":"BOOLEAN",
+        "default":"false",
+        "is_private": True
+    }]}
+    res = requests.post(url, headers=headers, json=data)
+
+
+
+
+

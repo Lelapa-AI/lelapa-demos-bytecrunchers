@@ -27,19 +27,18 @@ headers = {
 
 
     
-    url = f"https://whatsapp.turn.io/v1/contacts/{str(contact_number)}/profile"
+# url = f"https://whatsapp.turn.io/v1/contacts/{str(contact_number)}/profile"
 
-    data = {'name': name}
-    
-    # data = {'name': 'Fibzo', 
-    #         'surname':'',
-    #         'location':'', 
-    #         'language':'', 
-    #         'birthday':'';
-    #         'whatsapp_profile_name':''
-    # }
-    res = requests.patch(url, headers=headers, json=data)
-    print(res.json())
+# data = {'name': name}
 
-    return res.json()
+# # data = {'name': 'Fibzo', 
+# #         'surname':'',
+# #         'location':'', 
+# #         'language':'', 
+# #         'birthday':'';
+# #         'whatsapp_profile_name':''
+# # }
+# res = requests.patch(url, headers=headers, json=data)
+# print(res.json())
+
 
