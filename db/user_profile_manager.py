@@ -14,18 +14,26 @@ class UserProfileDatabaseManager:
 
     '''connects to DB & initialises cursor object'''
     def connectToDB(self):
-        self.connectionToDB = sqlite3.connect("profiles.db")
+        self.connectionToDB = sqlite3.connect("db/profiles.db")
         self.cursor_object = self.connectionToDB.cursor()
 
     
     '''executes SQL query to update a row'''
-    def updateUserProfile(self):
-        update_query = f'''
-        update user_profiles 
-        set schema_uuid = {self.schema_uuid}
-        where whatsapp_id = {self.whatsapp_id}
+    def updateUserProfileOnDb(self):
+        # update_query = f'''
+        # update user_profiles 
+        # set schema_uuid = {self.schema_uuid}
+        # where whatsapp_id = {self.whatsapp_id}
+        # '''
+        update_query = '''
+        update user_profiles
+        set schema_uuid = ?
+        where whatsapp_uuid = ?
         '''
-        self.cursor_object.execute(update_query)
+        print(update_query)
+        print("==========> ", self.schema_uuid)
+        self.cursor_object.execute(update_query, (self.schema_uuid, self.whatsapp_id))
+        # self.cursor_object.execute("update user_profiles set schema_uuid = (?)", (self.schema_uuid, self.whatsapp_id))
         self.commitDbQuery()
 
 
@@ -33,7 +41,7 @@ class UserProfileDatabaseManager:
     '''inserts new values into the table on the database'''
     def insert_into_db(self):
         insert_query = f'''
-        insert into user_profiles
+        insert or replace into user_profiles
         values({int(self.whatsapp_id)}, {int(self.schema_uuid)})
         '''
         self.cursor_object.execute(insert_query)
@@ -43,7 +51,7 @@ class UserProfileDatabaseManager:
     def set_new_uuid(self, new_id):
         self.schema_uuid = new_id
         print('+++++++++', new_id)
-        self.updateUserProfile()
+        self.updateUserProfileOnDb()
 
     '''commits changes to the database'''
     def commitDbQuery(self):
