@@ -63,7 +63,18 @@ def create_consent_field():
         "default":"false",
         "is_private": True
     }]}
+
+    # data = {"version":"0.0.1-alpha", "fields":[{
+    #     "name":"latest_user_question", 
+    #     "display":"Latest question", 
+    #     "type":"STRING",
+    #     "default":"None",
+    #     "is_private": True
+    # }]}
+    
+    
     res = requests.post(url, headers=headers, json=data)
+    return res
 
 
 

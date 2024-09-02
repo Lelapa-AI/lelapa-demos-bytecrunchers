@@ -1,3 +1,7 @@
+# TODO: depending on the var returned here, check return value which determines which card to send flow to 
+#TODO: only returning `not` when everything is fine i.e expected response is actually received response; name query returns Zinhle
+
+
 class ArgumentProcessor:
     name_len_limit = 7
     age_limit = 18

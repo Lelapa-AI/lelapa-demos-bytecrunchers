@@ -23,11 +23,11 @@ def myDisplay():
     ageCheck = request.args
     # print("===> ", len(request.args.get("age", "Nothing in there").strip()))
 
-    processVars(ageCheck)
+    return processVars(ageCheck)
 
 
     # return (len(request.args.get("name").strip()) > 5).json(), 200
-    return "Returned", 200
+    # return "Returned", 200
 
 
 
@@ -35,15 +35,16 @@ def myDisplay():
 
 def processVars(args):
 
-
+    myCode = 616
     for arg in args:
         if arg in holder:
-            print(my_switch.trait(arg, args))
+            # print(my_switch.trait(arg, args))
+            myVar = my_switch.trait(arg, args)
+            if "not" in myVar:
+                myCode = 200
 
-    print("Done")
+    return myVar, myCode
     # print(myHolder)
-
-
 
 
 # @app.route('/create', methods=['GET'])
