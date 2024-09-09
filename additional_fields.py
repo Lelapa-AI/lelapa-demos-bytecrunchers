@@ -57,12 +57,31 @@ def add_field(name, display, t, default, is_private=True):
 
 def create_consent_field():
     data = {"version":"0.0.1-alpha", "fields":[{
-        "name":"consent", 
-        "display":"Consent given", 
-        "type":"BOOLEAN",
-        "default":"false",
-        "is_private": True
-    }]}
+            "name":"latest_user_question", 
+            "display":"Latest question", 
+            "type":"STRING",
+            "default":"None",
+            "null":True,
+            "is_private": True
+        }, 
+        {
+            "name":"lang", 
+            "display":"Language", 
+            "type":"STRING",
+            "default":"None",
+            "null":True,
+            "is_private": True
+        }, 
+        {
+            "name":"nearest_clinic", 
+            "display":"HealthSpot", 
+            "type":"STRING",
+            "default":"None",
+            "null":True,
+            "is_private": True
+        }
+        
+        ]}
 
     # data = {"version":"0.0.1-alpha", "fields":[{
     #     "name":"latest_user_question", 

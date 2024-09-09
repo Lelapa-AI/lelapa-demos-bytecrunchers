@@ -1,4 +1,6 @@
+from config import VULA_VULA as vula_token
 import profile_1
+from test import entityRec
 from flask import Flask, request, jsonify
 from arg_processor import * 
 import requests
@@ -11,46 +13,92 @@ holder = ["age", "surname", "name"]
 myHolder = {}
 my_new_switch = ArgumentProcessor()
 
-
-
-
 app = Flask(__name__)
-
 
 @app.route('/create', methods=['GET'])
 def myDisplay():
-
     ageCheck = request.args
-    # print("===> ", len(request.args.get("age", "Nothing in there").strip()))
+    print("Found the request object ===> ", ageCheck)
 
-    return processVars(ageCheck)
-
-
-    # return (len(request.args.get("name").strip()) > 5).json(), 200
-    # return "Returned", 200
+    resultingString = processVars(ageCheck)
+    
+    return resultingString
 
 
 
 
 
 def processVars(args):
-
+    contactNum = args.get("whatsapp_id")
+    finalRes = {"booking_made":-1}
     myCode = 616
     for arg in args:
         if arg in holder:
             # print(my_switch.trait(arg, args))
             myVar = my_switch.trait(arg, args)
-            if "not" in myVar:
+            if "found" in myVar[0]:
+                #TODO: call entity rec function from here
+                result = entityRec(myVar[1], contactNum)
+                finalRes = update_whatsapp_profile_info(contactNum, result[0], result[1], result[2])
+                print("The final response ===>", finalRes)
+
+
+                
                 myCode = 200
 
-    return myVar, myCode
+    return finalRes
     # print(myHolder)
+
+
+# Because our model sometimes go to sleep, we have implemented a retry to try again.
+# from retry_requests import retry
+# from requests import Session
+# NER_URL = “https://beta-vulavula-services.lelapa.ai/api/v1/entity_recognition/process”
+# sentence = “President Ramaphosa gaan loop by Emfuleni Municipality”
+# headers={“X-CLIENT-TOKEN”: VULAVULA_TOKEN}
+ 
+# # Get retry helper session
+# session = retry(Session(), retries=10, backoff_factor=1)
+# ner = session.post(
+# NER_URL,
+# json={“encoded_text”: sentence},
+# headers=headers,)
+# ner.json()
+
+
+
+
+
+# def entityRec(sentence):
+#     # NER_URL = “https://beta-vulavula-services.lelapa.ai/api/v1/entity_recognition/process”
+#     # sentence = “President Ramaphosa gaan loop by Emfuleni Municipality”
+#     headers= {"X-CLIENT-TOKEN": vula_token}
+
+#     # # Get retry helper session
+#     # session = retry(Session(), retries=10, backoff_factor=1)
+#     # ner = session.post(
+#     # NER_URL,
+#     # json={“encoded_text”: sentence},
+#     # headers=headers,)
+#     # ner.json()
+
+#     url = "https://beta-vulavula-services.lelapa.ai/api/v1/entity_recognition/process"
+    
+
+
+
+    
+    
+#     pass
+
+
+    
 
 
 # @app.route('/create', methods=['GET'])
 def add_user_to_db():
-    create_consent_field()
-    print("===>", request)
+    # create_consent_field()
+    # print("===>", request)
     usr = UserProfile(request)
     my_manager = UserProfileDatabaseManager(usr.w_id, 0)
     new_schema_id = update_whatsapp_profile_info(usr)

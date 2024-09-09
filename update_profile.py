@@ -51,19 +51,21 @@ headers = {
 # TODO: create location object with keys lat & long
 
 
-def update_whatsapp_profile_info(user):
-    url = f"https://whatsapp.turn.io/v1/contacts/{user.w_id}/profile"
+def update_whatsapp_profile_info(userId, healthSpot, name, location):
+    url = f"https://whatsapp.turn.io/v1/contacts/{userId}/profile"
     data = {
-        "name":user.f_name, 
-        "surname":user.s_name, 
-        "language": None, 
-        "location":None, 
-        "consent":True, 
+        "nearest_clinic":healthSpot,
+        "name": name, 
+        "location":location
     }
 
     res = requests.patch(url, headers=headers, json=data)
-    print(res.json().get('schema'))
-    return res.json().get('schema')
+    # print(res.json().get('schema'))
+
+    responseObj = {"booking_made":1}
+    
+    # return res.json().get('schema')
+    return responseObj
 
 
 
