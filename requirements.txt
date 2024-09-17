@@ -27,7 +27,6 @@ pipfreeze
 platformdirs
 pydantic
 pygments
-pypdf2
 pyproject_hooks
 python-dotenv
 requests
